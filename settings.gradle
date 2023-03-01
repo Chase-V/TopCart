@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "TopCart"
 include ':app'
 include ':core'
+include ':featureStartScreen'

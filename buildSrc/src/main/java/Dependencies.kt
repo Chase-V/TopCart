@@ -18,7 +18,7 @@ object Releases {
 object Modules {
     const val app = ":app"
     const val core = ":core"
-
+    const val featureStartScreen = ":featureStartScreen"
 }
 
 object Versions {
