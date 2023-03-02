@@ -11,9 +11,6 @@ subprojects {
             android {
                 compileSdkVersion Config.compileSdk
 
-                buildFeatures {
-                    compose true
-                }
 
                 defaultConfig {
                     minSdkVersion Config.minSdk
@@ -41,9 +38,7 @@ subprojects {
                     jvmTarget = '19'
                 }
 
-                composeOptions {
-                    kotlinCompilerExtensionVersion Compose.kotlinCompilerExtensionVersion
-                }
+
                 packagingOptions {
                     resources {
                         excludes += '/META-INF/{AL2.0,LGPL2.1}'

@@ -3,4 +3,5 @@
     <string name="search_button_description">Search button</string>
     <string name="search_bar_placeholder">Search</string>
     <string name="choose_category">Choose category</string>
+    <string name="rating">Rating</string>
 </resources>

@@ -12,6 +12,13 @@ android {
         versionCode Releases.versionCode
         versionName Releases.versionName
     }
+
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Compose.kotlinCompilerExtensionVersion
+    }
 }
 
 dependencies {
