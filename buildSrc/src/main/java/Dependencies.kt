@@ -19,7 +19,10 @@ object Modules {
     const val app = ":app"
     const val core = ":core"
     const val featureStartScreen = ":featureStartScreen"
-}
+    const val featureAddProduct = ":featureAddProduct"
+    const val coreUI = ":core:coreUI"
+    const val coreModel = ":core:coreModel"
+    }
 
 object Versions {
 
@@ -64,6 +67,8 @@ object ComposeUi {
     const val viewModel =
         "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.composeViewModel}"
     const val graphics = "androidx.compose.ui:ui-graphics"
+    const val debugImplComposePreview = "androidx.compose.ui:ui-tooling"
+    const val debugImplComposeTestManifest = "androidx.compose.ui:ui-test-manifest"
 }
 
 

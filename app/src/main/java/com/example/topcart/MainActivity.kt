@@ -8,25 +8,35 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.example.topcart.navigation.AppNavHost
+import com.example.topcart.navigation.AppNavRoute
 import com.example.topcart.navigation.AppNavigationBar
-import com.example.topcart.ui.theme.TopCartTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TopCartTheme {
+            val navController = rememberNavController()
+            MaterialTheme {
                 Scaffold(
                     containerColor = MaterialTheme.colorScheme.background,
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        AppNavigationBar()
+                        AppNavigationBar(
+                            onNavigateToHome = { navController.navigate(AppNavRoute.MainScreen.route) },
+                            onNavigateToSearch = {},
+                            onNavigateToAddProduct = {navController.navigate(AppNavRoute.AddProductScreen.route)},
+                            onNavigateToCart = {}
+                        )
                     }
                 ) { paddingValues ->
-                    AppNavHost(modifier = Modifier.padding(paddingValues))
+                    Surface(modifier = Modifier.padding(paddingValues)) {
+                        AppNavHost(navController = navController)
+                    }
                 }
             }
         }

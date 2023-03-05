@@ -16,3 +16,6 @@ rootProject.name = "TopCart"
 include ':app'
 include ':core'
 include ':featureStartScreen'
+include ':featureAddProduct'
+include ':core:coreUI'
+include ':core:coreModel'

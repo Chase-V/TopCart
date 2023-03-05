@@ -9,15 +9,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 
 //Todo конь не валялся, просто заглушка
 
 @Composable
-fun AppNavigationBar() {
+fun AppNavigationBar(
+    onNavigateToHome: () -> Unit,
+    onNavigateToSearch:()->Unit,
+    onNavigateToAddProduct:() -> Unit,
+    onNavigateToCart:()->Unit
+) {
     NavigationBar() {
         NavigationBarItem(
             selected = true,
-            onClick = { /*TODO*/ },
+            onClick = onNavigateToHome,
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Home,
@@ -26,7 +32,7 @@ fun AppNavigationBar() {
             })
         NavigationBarItem(
             selected = false,
-            onClick = { /*TODO*/ },
+            onClick = onNavigateToSearch,
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Search,
@@ -35,7 +41,7 @@ fun AppNavigationBar() {
             })
         NavigationBarItem(
             selected = false,
-            onClick = { /*TODO*/ },
+            onClick = onNavigateToAddProduct,
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Add,
@@ -44,7 +50,7 @@ fun AppNavigationBar() {
             })
         NavigationBarItem(
             selected = false,
-            onClick = { /*TODO*/ },
+            onClick = onNavigateToCart,
             icon = {
                 Icon(
                     imageVector = Icons.Filled.ShoppingCart,

@@ -16,7 +16,8 @@ android {
 
 dependencies {
 
-    implementation(project(Modules.core))
+    implementation(project(Modules.coreModel))
+    implementation(project(Modules.coreUI))
 
     //Navigation
     implementation(NavigationComponent.navigation)
@@ -40,11 +41,11 @@ dependencies {
     implementation(ComposeUi.activity)
     implementation(ComposeUi.viewModel)
     implementation(ComposeUi.graphics)
+    debugImplementation(ComposeUi.debugImplComposeTestManifest)
+    debugImplementation(ComposeUi.debugImplComposePreview)
     implementation ("io.github.oleksandrbalan:textflow:1.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    debugImplementation ("androidx.compose.ui:ui-tooling")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest")
 }

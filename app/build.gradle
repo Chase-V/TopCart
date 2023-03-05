@@ -26,6 +26,7 @@ dependencies {
     //Modules
     implementation project(Modules.core)
     implementation project(Modules.featureStartScreen)
+    implementation project(Modules.featureAddProduct)
 
     //Kotlin
     implementation Kotlin.core
@@ -46,6 +47,8 @@ dependencies {
     implementation ComposeUi.activity
     implementation ComposeUi.viewModel
     implementation ComposeUi.graphics
+    debugImplementation(ComposeUi.debugImplComposePreview)
+    debugImplementation(ComposeUi.debugImplComposeTestManifest)
 
     //Room
     implementation Room.runtime
@@ -60,7 +63,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation platform('androidx.compose:compose-bom:2023.01.00')
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
 }

@@ -3,7 +3,7 @@ package com.example.featurestartscreen.uiElements
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import com.example.topcart.core.entities.Product
+import com.example.coremodel.entities.Product
 
 @Composable
 fun ProductList(

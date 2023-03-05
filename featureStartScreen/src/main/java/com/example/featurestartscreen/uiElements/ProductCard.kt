@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -26,8 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.coremodel.entities.Product
 import com.example.featurestartscreen.R
-import com.example.topcart.core.entities.Product
 import eu.wewox.textflow.TextFlow
 import eu.wewox.textflow.TextFlowObstacleAlignment
 
@@ -91,9 +91,9 @@ fun TitleAndRatingRow(modifier: Modifier = Modifier, title: String, rating: Int)
 
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Star,
+                    imageVector = Icons.Rounded.Star,
                     contentDescription = stringResource(R.string.rating),
-                    tint = Color.Yellow
+                    tint = Color(0xFFEFCE4A)
                 )
                 Text(text = rating.toString())
             }
