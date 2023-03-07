@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Add category button</string>
+    <string name="product_photo">Photo</string>
+    <string name="save">Save</string>
+    <string name="product_title">Product title</string>
+    <string name="leave_a_comment">Leave a comment</string>
+    <string name="barcode">Barcode</string>
+    <string name="price">Price</string>
+</resources>

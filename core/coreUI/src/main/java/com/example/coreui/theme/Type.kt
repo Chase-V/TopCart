@@ -1,4 +1,4 @@
-package com.example.topcart.ui.theme
+package com.example.coreui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

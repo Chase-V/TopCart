@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Кнопка для добавления категории</string>
+    <string name="product_photo">Фото</string>
+    <string name="save">Сохранить</string>
+    <string name="product_title">Название продукта</string>
+    <string name="leave_a_comment">Оставьте комментарий</string>
+    <string name="barcode">Штрих-код</string>
+    <string name="price">Цена</string>
+</resources>

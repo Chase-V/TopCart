@@ -1,4 +1,4 @@
-package com.example.topcart.ui.theme
+package com.example.coreui.theme
 
 import androidx.compose.ui.graphics.Color
 
