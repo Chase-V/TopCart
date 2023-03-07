@@ -103,6 +103,7 @@ fun AddProductScreenUI(
             modifier = modifier
                 .fillMaxWidth()
                 .height(150.dp),
+            shape = RoundedCornerShape(10.dp),
             maxLines = 4,
             placeholder = { Text(text = stringResource(id = com.example.featureaddproduct.R.string.leave_a_comment)) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -121,8 +122,8 @@ fun AddProductScreenUI(
                     painter = painterResource(id = com.example.featureaddproduct.R.drawable.gallery),
                     contentDescription = stringResource(com.example.featureaddproduct.R.string.product_photo),
                     modifier = modifier
-                        .heightIn(min = 200.dp, max = 250.dp)
-                        .widthIn(min = 200.dp, max = 300.dp)
+                        .heightIn(min = 150.dp, max = 200.dp)
+                        .widthIn(min = 150.dp, max = 250.dp)
                         .fillMaxWidth()
                         .background(
                             color = MaterialTheme.colorScheme.primaryContainer,
@@ -135,8 +136,8 @@ fun AddProductScreenUI(
                     contentDescription = stringResource(com.example.featureaddproduct.R.string.product_photo),
                     placeholder = painterResource(id = com.example.featureaddproduct.R.drawable.gallery),
                     modifier = modifier
-                        .heightIn(min = 200.dp, max = 250.dp)
-                        .widthIn(min = 200.dp, max = 300.dp)
+                        .heightIn(min = 150.dp, max = 200.dp)
+                        .widthIn(min = 150.dp, max = 250.dp)
                 )
             }
 
@@ -164,7 +165,7 @@ fun AddProductScreenUI(
                     .style(RatingBarStyle.HighLighted)
                     .size(32.dp)
             )
-            Text(text = "How are you rate it?")
+            Text(text = stringResource(com.example.featureaddproduct.R.string.how_are_you_rate_it))
         }
 
 
@@ -173,6 +174,7 @@ fun AddProductScreenUI(
             value = barcode,
             onValueChange = { barcode = it },
             placeholder = { Text(text = stringResource(com.example.featureaddproduct.R.string.barcode)) },
+            shape = RoundedCornerShape(10.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             trailingIcon = {
                 Icon(
@@ -201,6 +203,7 @@ fun AddProductScreenUI(
             onValueChange = { price = it },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             placeholder = { Text(text = stringResource(com.example.featureaddproduct.R.string.price)) },
+            shape = RoundedCornerShape(10.dp),
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = Color.Transparent,
