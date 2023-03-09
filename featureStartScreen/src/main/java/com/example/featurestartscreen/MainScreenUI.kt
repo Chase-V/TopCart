@@ -73,7 +73,7 @@ fun MainScreenUI(modifier: Modifier = Modifier, navController: NavHostController
         //TODO убрать фильтр, это для теста
         ProductList(
             products = if (chosenCategory == 0.toLong()) testProducts
-            else testProducts.filter { it.categoryID.id == chosenCategory }
+            else testProducts.filter { it.categoryID.categoryId == chosenCategory }
         )
 
     }

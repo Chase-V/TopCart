@@ -22,11 +22,11 @@ class RepositoryImpl : Repository {
         TODO("Not yet implemented")
     }
 
-    override fun getSubProductsFromCategory(categoryId: Long) {
+    override fun getSubProductsFromCategory(categoryId: Long): Flow<List<Product>> {
         TODO("Not yet implemented")
     }
 
-    override fun getSubCategories(categoryId: Long) {
+    override fun getSubCategories(categoryId: Long): Flow<List<ProductCategory>> {
         TODO("Not yet implemented")
     }
 

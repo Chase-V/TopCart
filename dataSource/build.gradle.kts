@@ -12,7 +12,7 @@ dependencies {
     implementation(project(Modules.coreModel))
 
     implementation(Room.roomKtx)
-    implementation(Room.compiler)
+    kapt(Room.compiler)
     implementation(Room.runtime)
     implementation(Kotlin.coroutinesAndroid)
 
