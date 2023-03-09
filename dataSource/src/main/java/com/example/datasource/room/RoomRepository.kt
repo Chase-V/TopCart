@@ -1,32 +1,33 @@
 package com.example.datasource.room
-
+/*
+//TODO удалить румрепо?
 import com.example.coremodel.entities.Product
 import com.example.coremodel.entities.ProductCategory
 import com.example.coremodel.repository.Repository
 import kotlinx.coroutines.flow.Flow
 
 class RoomRepository(private val appRoomDao:AppRoomDao) :Repository {
-    override fun getAllProducts(): Flow<List<Product>> {
+    override suspend fun getAllProducts(): Flow<List<Product>> {
         return appRoomDao.getAllProducts()
     }
 
-    override fun getAllCategories(): Flow<List<ProductCategory>> {
+    override suspend fun getAllCategories(): Flow<List<ProductCategory>> {
         return appRoomDao.getAllCategories()
     }
 
-    override fun getProduct(id: Long): Flow<List<Product>> {
-        return appRoomDao.getProduct(id)
-    }
+//    override fun getProduct(id: Long): Flow<List<Product>> {
+//        return appRoomDao.getProduct(id)
+//    }
+//
+//    override fun getCategory(id: Long): Flow<List<ProductCategory>> {
+//        return appRoomDao.getCategory(id)
+//    }
 
-    override fun getCategory(id: Long): Flow<List<ProductCategory>> {
-        return appRoomDao.getCategory(id)
-    }
-
-    override fun getSubProductsFromCategory(categoryId: Long) : Flow<List<Product>>{
+    override suspend fun getSubProductsFromCategory(categoryId: Long) : Flow<List<Product>>{
         return appRoomDao.getProductsFromCategory(categoryId)
     }
 
-    override fun getSubCategories(categoryId: Long): Flow<List<ProductCategory>>  {
+    override suspend fun getSubCategories(categoryId: Long): Flow<List<ProductCategory>>  {
         return appRoomDao.getSubCategories(categoryId)
     }
 
@@ -53,4 +54,4 @@ class RoomRepository(private val appRoomDao:AppRoomDao) :Repository {
     override suspend fun updateProductCategory(category: ProductCategory, onSuccess: () -> Unit) {
         return appRoomDao.updateProductCategory(category, {TODO()})
     }
-}
+}*/

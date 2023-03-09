@@ -27,6 +27,10 @@ dependencies {
     implementation project(Modules.core)
     implementation project(Modules.featureStartScreen)
     implementation project(Modules.featureAddProduct)
+    implementation project(Modules.coreModel)
+    implementation project(Modules.coreUI)
+    implementation project(Modules.dataSource)
+    implementation project(Modules.shareViewModel)
 
     //Kotlin
     implementation Kotlin.core
@@ -38,6 +42,9 @@ dependencies {
 
     //Coil
     implementation Coil.coil
+
+    //Koin
+    implementation KoinCompose.koinCompose
 
     //Compose
     implementation platform(ComposeUi.bom)

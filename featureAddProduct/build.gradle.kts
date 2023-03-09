@@ -22,6 +22,7 @@ dependencies {
 
     implementation(project(Modules.coreModel))
     implementation(project(Modules.coreUI))
+    implementation(project(Modules.shareViewModel))
 
     //Navigation
     implementation(NavigationComponent.navigation)

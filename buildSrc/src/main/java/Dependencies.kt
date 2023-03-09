@@ -22,6 +22,8 @@ object Modules {
     const val featureAddProduct = ":featureAddProduct"
     const val coreUI = ":core:coreUI"
     const val coreModel = ":core:coreModel"
+    const val dataSource = ":dataSource"
+    const val shareViewModel = ":sharedViewModel"
     }
 
 object Versions {
@@ -44,12 +46,20 @@ object Versions {
     const val navigation = "2.5.3"
 
     //Lifecycle
-    const val lifecycle = "2.5.1"
+    const val lifecycle = "2.6.0"
 
     //Compose
     const val composeBom = "2023.01.00"
     const val composeActivity = "1.6.1"
-    const val composeViewModel = "2.5.1"
+    const val composeViewModel = "2.6.0"
+
+    //Koin
+    const val koin = "3.4.2"
+
+}
+
+object KoinCompose{
+    const val koinCompose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
 }
 
 object Lifecycle {
