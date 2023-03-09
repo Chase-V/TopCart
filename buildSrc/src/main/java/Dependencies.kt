@@ -36,9 +36,7 @@ object Versions {
     const val coil = "2.2.2"
 
     //Room
-    const val roomKtx = "2.5.0"
-    const val runtime = "2.5.0"
-    const val roomCompiler = "2.5.0"
+    const val roomVersion = "2.5.0"
 
     //Test
 
@@ -86,9 +84,10 @@ object Coil {
 }
 
 object Room {
-    const val runtime = "androidx.room:room-runtime:${Versions.runtime}"
-    const val compiler = "androidx.room:room-compiler:${Versions.roomCompiler}"
-    const val roomKtx = "androidx.room:room-ktx:${Versions.roomKtx}"
+    const val runtime = "androidx.room:room-runtime:${Versions.roomVersion}"
+    const val compiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
+    const val roomPaging = "androidx.room:room-paging:${Versions.roomVersion}"
 }
 
 object TestImpl {

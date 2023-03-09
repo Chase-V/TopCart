@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.coremodel.entities.testCategories
 import com.example.coremodel.entities.testProducts
-import com.example.coreui.elements.SmallButton
 import com.example.coreui.elements.CategoriesDropdown
+import com.example.coreui.elements.SmallButton
 import com.example.featurestartscreen.uiElements.ProductList
 import com.example.featurestartscreen.uiElements.SearchBar
 
@@ -73,7 +73,7 @@ fun MainScreenUI(modifier: Modifier = Modifier, navController: NavHostController
         //TODO убрать фильтр, это для теста
         ProductList(
             products = if (chosenCategory == 0.toLong()) testProducts
-            else testProducts.filter { it.category.id == chosenCategory }
+            else testProducts.filter { it.categoryID.id == chosenCategory }
         )
 
     }

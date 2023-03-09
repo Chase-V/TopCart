@@ -106,12 +106,12 @@ fun CategoriesDropdown(
                     ),
             ) {
                 items(items) { suggestion ->
-                    if (suggestion.title.contains(dropdownSearchValue, true)) {
-                        DropdownItem(text = suggestion.title, modifier = modifier
+                    if (suggestion.categoryTitle.contains(dropdownSearchValue, true)) {
+                        DropdownItem(text = suggestion.categoryTitle, modifier = modifier
                             .fillMaxWidth()
                             .clickable {
-                                onValueChanged(suggestion.title)
-                                onCategoryChosen(suggestion.id)
+                                onValueChanged(suggestion.categoryTitle)
+                                onCategoryChosen(suggestion.categoryId)
                                 isExpanded = false
                             })
                     }

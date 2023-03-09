@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/coreModel" />
             <option value="$PROJECT_DIR$/core/coreUI" />
+            <option value="$PROJECT_DIR$/dataSource" />
             <option value="$PROJECT_DIR$/featureAddProduct" />
             <option value="$PROJECT_DIR$/featureStartScreen" />
           </set>

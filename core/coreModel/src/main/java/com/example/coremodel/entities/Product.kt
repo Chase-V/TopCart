@@ -1,8 +1,12 @@
 package com.example.coremodel.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "product_table")
 data class Product(
-    val id: Long,
-    val category: ProductCategory,
+    @PrimaryKey(autoGenerate = true) val productId: Long,
+    val categoryID: ProductCategory,
     val title: String,
     val comment: String,
     val rating: Int,
@@ -15,8 +19,8 @@ data class Product(
 //TODO убрать тестовый список товаров
 val testProducts = listOf(
     Product(
-        id = 122L,
-        category = testCategories[1],
+        productId = 122L,
+        categoryID = testCategories[1],
         title = "Какое-то кино с очень длинным названием ради того, чтобы посмотреть на название карточки в несколько строк",
         comment = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
         rating = 4,
@@ -24,8 +28,8 @@ val testProducts = listOf(
         barcode = null,
     ),
     Product(
-        id = 123L,
-        category = testCategories[2],
+        productId = 123L,
+        categoryID = testCategories[2],
         title = "TOPOVOE JIJLO",
         comment = "vkoosno, но Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я. Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Когда от милой моей долины поднимается пар и полдневное солнце стоит над непроницаемой чащей темного леса и лишь редкий луч проскальзывает в его святая святых, а я лежу в высокой траве",
         rating = 3,
@@ -34,8 +38,8 @@ val testProducts = listOf(
         price = 228.99f
     ),
     Product(
-        id = 124L,
-        category = testCategories[3],
+        productId = 124L,
+        categoryID = testCategories[3],
         title = "Азерчай с бергамотом",
         comment = "Это вкусно, но не то чтобы по вкусу вкусно, но по сути вкусно!",
         rating = 4,
@@ -43,16 +47,16 @@ val testProducts = listOf(
         barcode = null,
     ),
     Product(
-        id = 125L,
-        category = testCategories[4],
+        productId = 125L,
+        categoryID = testCategories[4],
         title = "Артемов Олег Егорович",
         comment = "Было больно, вырвал 2 лишних передних зуба",
         rating = 2,
         barcode = null,
     ),
     Product(
-        id = 124L,
-        category = testCategories[1],
+        productId = 124L,
+        categoryID = testCategories[1],
         title = "Какое-то кинцо 2",
         comment = "Первая часть была лучше, но тот тип все вытащил на себе",
         rating = 4,
@@ -60,8 +64,8 @@ val testProducts = listOf(
         barcode = null,
     ),
     Product(
-        id = 126L,
-        category = testCategories[5],
+        productId = 126L,
+        categoryID = testCategories[5],
         title = "Джин Gordon's",
         comment = "Кайф, с тоником самое то",
         rating = 5,
@@ -69,8 +73,8 @@ val testProducts = listOf(
         barcode = null,
     ),
     Product(
-        id = 122L,
-        category = testCategories[1],
+        productId = 122L,
+        categoryID = testCategories[1],
         title = "Какое-то кино с очень длинным названием ради того, чтобы посмотреть на название карточки в несколько строк",
         comment = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
         rating = 4,
@@ -78,8 +82,8 @@ val testProducts = listOf(
         barcode = null,
     ),
     Product(
-        id = 123L,
-        category = testCategories[2],
+        productId = 123L,
+        categoryID = testCategories[2],
         title = "TOPOVOE JIJLO",
         comment = "vkoosno, но Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я. Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Когда от милой моей долины поднимается пар и полдневное солнце стоит над непроницаемой чащей темного леса и лишь редкий луч проскальзывает в его святая святых, а я лежу в высокой траве",
         rating = 3,
@@ -88,8 +92,8 @@ val testProducts = listOf(
         price = 228.99f
     ),
     Product(
-        id = 124L,
-        category = testCategories[3],
+        productId = 124L,
+        categoryID = testCategories[3],
         title = "Азерчай с бергамотом",
         comment = "Это вкусно, но не то чтобы по вкусу вкусно, но по сути вкусно!",
         rating = 4,
@@ -97,16 +101,16 @@ val testProducts = listOf(
         barcode = null,
     ),
     Product(
-        id = 125L,
-        category = testCategories[4],
+        productId = 125L,
+        categoryID = testCategories[4],
         title = "Артемов Олег Егорович",
         comment = "Было больно, вырвал 2 лишних передних зуба",
         rating = 2,
         barcode = null,
     ),
     Product(
-        id = 124L,
-        category = testCategories[1],
+        productId = 124L,
+        categoryID = testCategories[1],
         title = "Какое-то кинцо 2",
         comment = "Первая часть была лучше, но тот тип все вытащил на себе",
         rating = 4,
@@ -114,8 +118,8 @@ val testProducts = listOf(
         barcode = null,
     ),
     Product(
-        id = 126L,
-        category = testCategories[5],
+        productId = 126L,
+        categoryID = testCategories[5],
         title = "Джин Gordon's",
         comment = "Кайф, с тоником самое то",
         rating = 5,

@@ -5,14 +5,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.coremodel"
+    namespace = "com.example.datasource"
 }
 
 dependencies {
+    implementation(project(Modules.coreModel))
 
     implementation(Room.roomKtx)
-    implementation(Room.runtime)
     implementation(Room.compiler)
+    implementation(Room.runtime)
+    implementation(Kotlin.coroutinesAndroid)
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
