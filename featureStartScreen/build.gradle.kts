@@ -20,6 +20,8 @@ dependencies {
     implementation(project(Modules.coreUI))
     implementation(project(Modules.shareViewModel))
 
+    //Koin
+    implementation(KoinCompose.koinCompose)
 
     //Navigation
     implementation(NavigationComponent.navigation)

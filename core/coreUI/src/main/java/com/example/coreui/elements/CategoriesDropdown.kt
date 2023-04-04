@@ -50,8 +50,9 @@ fun CategoriesDropdown(
     items: List<ProductCategory>,
     dropdownSearchValue: String,
     onValueChanged: (String) -> Unit,
-    onCategoryChosen: (Long) -> Unit,
-    placeholder:String
+    onCategoryChosen: (ProductCategory) -> Unit,
+    placeholder:String,
+    isReadOnly:Boolean = false,
 ) {
 
     var isExpanded by rememberSaveable { mutableStateOf(false) }
@@ -74,15 +75,18 @@ fun CategoriesDropdown(
                 onValueChanged(it)
                 isExpanded = true
             },
+            readOnly = isReadOnly,
             singleLine = true,
             shape = RoundedCornerShape(10.dp),
             trailingIcon = {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = stringResource(R.string.choose_category),
-                    modifier
-                        .clickable { isExpanded = !isExpanded },
-                )
+                if (!isReadOnly) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = stringResource(R.string.choose_category),
+                        modifier
+                            .clickable { isExpanded = !isExpanded },
+                    )
+                }
             },
             placeholder = { Text(text = placeholder) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -111,7 +115,7 @@ fun CategoriesDropdown(
                             .fillMaxWidth()
                             .clickable {
                                 onValueChanged(suggestion.categoryTitle)
-                                onCategoryChosen(suggestion.categoryId)
+                                onCategoryChosen(suggestion)
                                 isExpanded = false
                             })
                     }

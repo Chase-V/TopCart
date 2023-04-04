@@ -3,7 +3,7 @@ package com.example.coremodel.entities
 import java.util.Date
 
 data class Product(
-    val productId: Long,
+    val productId: Long = 0L,
     val categoryID: Long,
     val title: String,
     val comment: String,
@@ -11,7 +11,18 @@ data class Product(
     val photoURI: String? = null,
     val barcode: Long? = null,
     val price: Float? = null,
-    val createdAt: Date? = null
+    val createdAt: Date
+)
+fun emptyProduct():Product = Product(
+    productId = 0L,
+    categoryID = 0L,
+    title = "",
+    comment = "",
+    rating = 0,
+    photoURI = "",
+    barcode = 0L,
+    price = 0f,
+    createdAt = Date(0)
 )
 
 //TODO убрать тестовый список товаров
@@ -23,7 +34,8 @@ val testProducts = listOf(
         comment = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
         rating = 4,
         photoURI = "https://picsum.photos/1921/1081",
-        barcode = null,
+        barcode = null
+        , createdAt = Date()
     ),
     Product(
         productId = 123L,
@@ -33,7 +45,7 @@ val testProducts = listOf(
         rating = 3,
         photoURI = null,
         barcode = 228228228,
-        price = 228.99f
+        price = 228.99f, createdAt = Date()
     ),
     Product(
         productId = 124L,
@@ -42,7 +54,7 @@ val testProducts = listOf(
         comment = "Это вкусно, но не то чтобы по вкусу вкусно, но по сути вкусно!",
         rating = 4,
         photoURI = "https://picsum.photos/1920/1080",
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 125L,
@@ -50,7 +62,7 @@ val testProducts = listOf(
         title = "Артемов Олег Егорович",
         comment = "Было больно, вырвал 2 лишних передних зуба",
         rating = 2,
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 124L,
@@ -59,7 +71,7 @@ val testProducts = listOf(
         comment = "Первая часть была лучше, но тот тип все вытащил на себе",
         rating = 4,
         photoURI = null,
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 126L,
@@ -68,7 +80,7 @@ val testProducts = listOf(
         comment = "Кайф, с тоником самое то",
         rating = 5,
         photoURI = null,
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 122L,
@@ -77,7 +89,7 @@ val testProducts = listOf(
         comment = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
         rating = 4,
         photoURI = "https://picsum.photos/1921/1081",
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 123L,
@@ -87,7 +99,7 @@ val testProducts = listOf(
         rating = 3,
         photoURI = null,
         barcode = 228228228,
-        price = 228.99f
+        price = 228.99f, createdAt = Date()
     ),
     Product(
         productId = 124L,
@@ -96,7 +108,7 @@ val testProducts = listOf(
         comment = "Это вкусно, но не то чтобы по вкусу вкусно, но по сути вкусно!",
         rating = 4,
         photoURI = "https://picsum.photos/1920/1080",
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 125L,
@@ -104,7 +116,7 @@ val testProducts = listOf(
         title = "Артемов Олег Егорович",
         comment = "Было больно, вырвал 2 лишних передних зуба",
         rating = 2,
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 124L,
@@ -113,7 +125,7 @@ val testProducts = listOf(
         comment = "Первая часть была лучше, но тот тип все вытащил на себе",
         rating = 4,
         photoURI = null,
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
     Product(
         productId = 126L,
@@ -122,6 +134,6 @@ val testProducts = listOf(
         comment = "Кайф, с тоником самое то",
         rating = 5,
         photoURI = null,
-        barcode = null,
+        barcode = null, createdAt = Date()
     ),
 )

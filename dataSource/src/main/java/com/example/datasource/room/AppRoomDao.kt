@@ -19,10 +19,10 @@ interface AppRoomDao {
     fun getAllCategories(): Flow<List<ProductCategoryEntity>>
 
     @Query("SELECT * FROM product_table WHERE productId == :id")
-    fun getProduct(id: Long): Flow<List<ProductEntity>>
+    fun getProduct(id: Long): Flow<ProductEntity>
 
     @Query("SELECT * FROM product_category_table WHERE categoryId == :id")
-    fun getCategory(id: Long): Flow<List<ProductCategoryEntity>>
+    fun getCategory(id: Long): Flow<ProductCategoryEntity>
 
     @Query("SELECT * FROM product_table WHERE categoryID == :categoryId")
     fun getProductsFromCategory(categoryId: Long): Flow<List<ProductEntity>>

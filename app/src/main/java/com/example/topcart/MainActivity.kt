@@ -11,9 +11,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.coreui.theme.TopCartTheme
 import com.example.topcart.navigation.AppNavHost
-import com.example.topcart.navigation.AppNavRoute
-import com.example.topcart.navigation.AppNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
@@ -21,18 +20,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            MaterialTheme {
+            TopCartTheme {
                 Scaffold(
                     containerColor = MaterialTheme.colorScheme.background,
-                    modifier = Modifier.fillMaxSize(),
-                    bottomBar = {
-                        AppNavigationBar(
-                            onNavigateToHome = { navController.navigate(AppNavRoute.MainScreen.route) },
-                            onNavigateToSearch = {},
-                            onNavigateToAddProduct = {navController.navigate(AppNavRoute.AddProductScreen.route)},
-                            onNavigateToCart = {}
-                        )
-                    }
+                    modifier = Modifier.fillMaxSize()
                 ) { paddingValues ->
                     Surface(modifier = Modifier.padding(paddingValues)) {
                         AppNavHost(navController = navController)

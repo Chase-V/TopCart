@@ -32,6 +32,12 @@ fun Flow<List<ProductEntity>>.toProductsList():Flow<List<Product>>{
         }
     }
 }
+fun Flow<ProductEntity>.toProduct():Flow<Product>{
+    return this.map { productEntity ->
+            productEntity.toProduct()
+    }
+}
+
 fun Flow<List<ProductCategoryEntity>>.toProductCategoryList():Flow<List<ProductCategory>>{
     return this.map { list ->
         list.map {productCategoryEntity ->
@@ -40,7 +46,13 @@ fun Flow<List<ProductCategoryEntity>>.toProductCategoryList():Flow<List<ProductC
     }
 }
 
-fun Product.toEntity(createdAt:Date):ProductEntity{
+fun Flow<ProductCategoryEntity>.toProductCategory():Flow<ProductCategory>{
+    return this.map { productCategoryEntity ->
+            productCategoryEntity.toProductCategory()
+    }
+}
+
+fun Product.toEntity():ProductEntity{
     return ProductEntity(
         productId = productId,
         categoryID = categoryID,
@@ -53,9 +65,31 @@ fun Product.toEntity(createdAt:Date):ProductEntity{
         createdAt = createdAt
     )
 }
+fun ProductEntity.toProduct():Product{
+    return Product(
+        productId = productId,
+        categoryID = categoryID,
+        title = title,
+        comment = comment,
+        rating = rating,
+        photoURI = photoURI,
+        barcode = barcode,
+        price = price,
+        createdAt = createdAt
+    )
+}
 
-fun ProductCategory.toEntity(createdAt: Date):ProductCategoryEntity{
+fun ProductCategory.toEntity():ProductCategoryEntity{
     return ProductCategoryEntity(
+        categoryId = categoryId,
+        categoryTitle = categoryTitle,
+        parentCategoryId = parentCategoryId,
+        createdAt = createdAt
+    )
+}
+
+fun ProductCategoryEntity.toCategory():ProductCategory{
+    return ProductCategory(
         categoryId = categoryId,
         categoryTitle = categoryTitle,
         parentCategoryId = parentCategoryId,

@@ -7,34 +7,31 @@ import java.util.Date
 
 interface Repository {
 
-    suspend fun getAllProducts(): Flow<List<Product>>
-    suspend fun getAllCategories(): Flow<List<ProductCategory>>
+     fun getAllProducts(): Flow<List<Product>>
+     fun getAllCategories(): Flow<List<ProductCategory>>
 
-//    suspend fun getProduct(id:Long): Flow<List<Product>>
-//    suspend fun getCategory(id:Long): Flow<List<ProductCategory>>
+     fun getProduct(id:Long): Flow<Product>
+     fun getCategory(id:Long): Flow<ProductCategory>
 
-    suspend fun getSubProductsFromCategory(categoryId: Long): Flow<List<Product>>
-    suspend fun getSubCategories(categoryId: Long): Flow<List<ProductCategory>>
+     fun getSubProductsFromCategory(categoryId: Long): Flow<List<Product>>
+     fun getSubCategories(categoryId: Long): Flow<List<ProductCategory>>
 
 
-    suspend fun createProduct(product: Product, createdAt: Date, onSuccess: () -> Unit)
+    suspend fun createProduct(product: Product, onSuccess: () -> Unit)
     suspend fun createProductCategory(
         category: ProductCategory,
-        createdAt: Date,
         onSuccess: () -> Unit
     )
 
-    suspend fun deleteProduct(product: Product, createdAt: Date, onSuccess: () -> Unit)
+    suspend fun deleteProduct(product: Product, onSuccess: () -> Unit)
     suspend fun deleteProductCategory(
         category: ProductCategory,
-        createdAt: Date,
         onSuccess: () -> Unit
     )
 
-    suspend fun updateProduct(product: Product, createdAt: Date, onSuccess: () -> Unit)
+    suspend fun updateProduct(product: Product, onSuccess: () -> Unit)
     suspend fun updateProductCategory(
         category: ProductCategory,
-        createdAt: Date,
         onSuccess: () -> Unit
     )
 

@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -46,8 +47,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.coremodel.entities.Product
+import com.example.coremodel.entities.ProductCategory
 import com.example.coremodel.entities.emptyCategory
-import com.example.coreui.R
 import com.example.coreui.elements.CategoriesDropdown
 import com.example.coreui.elements.SmallButton
 import com.example.featureaddproduct.uiElements.ProductTitleTextField
@@ -59,29 +60,67 @@ import com.gowtham.ratingbar.StepSize
 import org.koin.androidx.compose.koinViewModel
 import java.util.Date
 
+
+@Composable
+fun EditProductScreenUI(
+    modifier: Modifier = Modifier,
+    productId: Long,
+    navController: NavController
+) {
+    val viewModel = koinViewModel<SharedViewModel>()
+    val allCategoriesList by viewModel.suggestedCategories.collectAsState(initial = null)
+    val product by viewModel.getProduct(productId).collectAsState(initial = null)
+
+    if ((allCategoriesList.isNullOrEmpty()) and (product == null)) {
+        CircularProgressIndicator(modifier = modifier.fillMaxSize())
+    } else {
+        Log.d("MyLog", "EditProductScreenUI: product:$product")
+        Log.d("MyLog", "EditProductScreenUI: cats:$allCategoriesList")
+        EditProduct(
+            product = product!!,
+            allCategoriesList = allCategoriesList!!,
+            viewModel = viewModel,
+            onProductChanged = {
+                navController.popBackStack()
+            })
+    }
+
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddProductScreenUI(
-    navController: NavController,
+fun EditProduct(
+    product: Product,
+    allCategoriesList: List<ProductCategory>,
     modifier: Modifier = Modifier,
-    onSuccessfullyAdded: () -> Unit,
-    isReadOnly: Boolean = false
+    viewModel: SharedViewModel,
+    onProductChanged: () -> Unit
 ) {
 
-    val viewModel = koinViewModel<SharedViewModel>()
-    val categoriesList by viewModel.getAllCategories.collectAsState(initial = emptyList())
+    var titleValue by rememberSaveable { mutableStateOf(product.title) }
+    var commentValue by rememberSaveable { mutableStateOf(product.comment) }
+    var rating by rememberSaveable { mutableStateOf(product.rating) }
+    var barcode by rememberSaveable {
+        mutableStateOf(
+            if (product.barcode == null) ""
+            else product.barcode.toString()
+        )
+    }
+    var price by rememberSaveable {
+        mutableStateOf(
+            if (product.price == null) ""
+            else product.price.toString()
+        )
+    }
+    var photoURI by rememberSaveable { mutableStateOf(product.photoURI) }
+    var currentCategory by remember {
+        mutableStateOf(
+            if (allCategoriesList.isEmpty()) emptyCategory()
+            else allCategoriesList.first { it.categoryId == product.categoryID }
+        )
+    }
+    var dropdownSearchValue by rememberSaveable { mutableStateOf(currentCategory.categoryTitle) }
 
-
-    var titleValue by rememberSaveable { mutableStateOf("") }
-    var dropdownSearchValue by rememberSaveable { mutableStateOf("") }
-    var chosenCategory by remember { mutableStateOf(emptyCategory()) }
-    var commentValue by rememberSaveable { mutableStateOf("") }
-    var photoURI by rememberSaveable { mutableStateOf("") }
-    var rating by rememberSaveable { mutableStateOf(0F) }
-    var barcode by rememberSaveable { mutableStateOf("") }
-    var price by rememberSaveable { mutableStateOf("") }
-
-    //TODO поправить сброс скролла при выборе звезды
     Column(
         modifier = modifier
             .verticalScroll(state = rememberScrollState())
@@ -91,25 +130,27 @@ fun AddProductScreenUI(
 
         ProductTitleTextField(
             titleValue = titleValue,
-            onTitleValueChange = { titleValue = it },
-            isReadOnly = isReadOnly
+            onTitleValueChange = { titleValue = it }
         )
-
         Row {
             CategoriesDropdown(
-                items = categoriesList,
+                items = allCategoriesList,
                 dropdownSearchValue = dropdownSearchValue,
-                onValueChanged = { dropdownSearchValue = it },
-                onCategoryChosen = { chosenCategory = it },
-                placeholder = stringResource(id = R.string.choose_category),
-                modifier = Modifier.padding(bottom = 8.dp),
-                isReadOnly = isReadOnly
+                onValueChanged = {
+                    dropdownSearchValue = it
+                },
+                onCategoryChosen = {
+                    currentCategory = it
+                    dropdownSearchValue = it.categoryTitle
+                },
+                placeholder = stringResource(id = com.example.coreui.R.string.choose_category),
+                modifier = Modifier.padding(bottom = 8.dp)
             )
 
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = stringResource(com.example.featureaddproduct.R.string.add_category)
+                    contentDescription = stringResource(R.string.add_category)
                 )
             }
         }
@@ -121,9 +162,8 @@ fun AddProductScreenUI(
                 .fillMaxWidth()
                 .height(150.dp),
             shape = RoundedCornerShape(10.dp),
-            readOnly = isReadOnly,
             maxLines = 4,
-            placeholder = { Text(text = stringResource(id = com.example.featureaddproduct.R.string.leave_a_comment)) },
+            placeholder = { Text(text = stringResource(id = R.string.leave_a_comment)) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = Color.Transparent,
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -137,10 +177,10 @@ fun AddProductScreenUI(
                 .padding(vertical = 8.dp)
                 .fillMaxWidth()
         ) {
-            if (photoURI.isEmpty() and !isReadOnly) {
+            if (photoURI.isNullOrEmpty()) {
                 Image(
-                    painter = painterResource(id = com.example.featureaddproduct.R.drawable.gallery),
-                    contentDescription = stringResource(com.example.featureaddproduct.R.string.product_photo),
+                    painter = painterResource(id = R.drawable.gallery),
+                    contentDescription = stringResource(R.string.product_photo),
                     modifier = modifier
                         .heightIn(min = 150.dp, max = 200.dp)
                         .widthIn(min = 150.dp, max = 250.dp)
@@ -153,23 +193,22 @@ fun AddProductScreenUI(
             } else {
                 AsyncImage(
                     model = photoURI,
-                    contentDescription = stringResource(com.example.featureaddproduct.R.string.product_photo),
-                    placeholder = painterResource(id = com.example.featureaddproduct.R.drawable.gallery),
+                    contentDescription = stringResource(R.string.product_photo),
+                    placeholder = painterResource(id = R.drawable.gallery),
                     modifier = modifier
                         .heightIn(min = 150.dp, max = 200.dp)
                         .widthIn(min = 150.dp, max = 250.dp)
                 )
             }
 
-            if (!isReadOnly) {
-                SmallButton(
-                    iconResId = R.drawable.camera,
-                    onClick = {
+            SmallButton(
+                iconResId = com.example.coreui.R.drawable.camera,
+                onClick = {
 //                TODO() открыть камеру для фото
-                    },
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-            }
+                },
+                modifier = Modifier.padding(start = 8.dp)
+            )
+
 
         }
 
@@ -180,32 +219,40 @@ fun AddProductScreenUI(
             modifier = Modifier.fillMaxWidth()
         ) {
             RatingBar(
-                value = rating,
-                onValueChange = { rating = it },
+                value = rating.toFloat(),
+                onValueChange = { rating = it.toInt() },
                 onRatingChanged = {},
                 modifier = modifier.align(Alignment.CenterHorizontally),
                 config = RatingBarConfig()
                     .stepSize(StepSize.ONE)
                     .style(RatingBarStyle.HighLighted)
-                    .size(32.dp).isIndicator(isReadOnly)
+                    .size(32.dp)
             )
-            Text(text = stringResource(com.example.featureaddproduct.R.string.how_are_you_rate_it))
+            Text(text = stringResource(R.string.how_are_you_rate_it))
         }
 
 
 
         OutlinedTextField(
             value = barcode,
-            onValueChange = { barcode = it },
-            readOnly = isReadOnly,
-            placeholder = { Text(text = stringResource(com.example.featureaddproduct.R.string.barcode)) },
+            onValueChange = {
+                barcode = if (it.isEmpty()) {
+                    it
+                } else {
+                    when (it.toIntOrNull()) {
+                        null -> barcode //old value
+                        else -> it   //new value
+                    }
+                }
+            },
+            placeholder = { Text(text = stringResource(R.string.barcode)) },
             shape = RoundedCornerShape(10.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             trailingIcon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.barcode_scanner),
+                    painter = painterResource(id = com.example.coreui.R.drawable.barcode_scanner),
                     contentDescription = stringResource(
-                        id = R.string.open_barcode_scanner_button
+                        id = com.example.coreui.R.string.open_barcode_scanner_button
                     ),
                     modifier = Modifier
                         .clickable {
@@ -225,7 +272,6 @@ fun AddProductScreenUI(
 
         OutlinedTextField(
             value = price,
-            readOnly = isReadOnly,
             onValueChange = {
                 price = if (it.isEmpty()) {
                     it
@@ -237,7 +283,7 @@ fun AddProductScreenUI(
                 }
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            placeholder = { Text(text = stringResource(com.example.featureaddproduct.R.string.price)) },
+            placeholder = { Text(text = stringResource(R.string.price)) },
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -249,19 +295,22 @@ fun AddProductScreenUI(
         Button(
             shape = ButtonDefaults.elevatedShape,
             onClick = {
-                viewModel.addProduct(Product(
-                    categoryID = chosenCategory.categoryId,
+                val edited = Product(
+                    productId = product.productId,
+                    categoryID = currentCategory.categoryId,
                     title = titleValue,
                     comment = commentValue,
-                    rating = rating.toInt(),
+                    rating = rating,
                     photoURI = photoURI,
-                    barcode = barcode.toLongOrNull(),
-                    price = price.toFloatOrNull(),
+                    barcode = barcode.toLong(),
+                    price = price.toFloat(),
                     createdAt = Date()
-                ), onSuccess = {
-                    Log.d("MyLog", "AddProductScreenUI: It pushed!")
-                })
-                onSuccessfullyAdded()
+                )
+                viewModel.updateProduct(
+                    edited
+                )
+                onProductChanged()
+
             },
             elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 4.dp),
             modifier = modifier
@@ -269,10 +318,11 @@ fun AddProductScreenUI(
                 .padding(top = 14.dp)
         ) {
             Text(
-                text = stringResource(com.example.featureaddproduct.R.string.save),
+                text = stringResource(R.string.save),
                 modifier = modifier.padding(14.dp)
             )
         }
+
 
     }
 }

@@ -1,5 +1,6 @@
 package com.example.datasource.entities
 
+import android.util.Log
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters

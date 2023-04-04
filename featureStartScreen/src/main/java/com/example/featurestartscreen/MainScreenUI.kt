@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,65 +19,92 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.example.coremodel.entities.testCategories
-import com.example.coremodel.entities.testProducts
-import com.example.coreui.elements.CategoriesDropdown
-import com.example.coreui.elements.SmallButton
+import androidx.navigation.NavController
+import com.example.featurestartscreen.uiElements.CategoriesGrid
 import com.example.featurestartscreen.uiElements.ProductList
 import com.example.featurestartscreen.uiElements.SearchBar
+import com.example.featurestartscreen.uiElements.bottomBar.MainScreenBottomBar
+import com.example.sharedviewmodel.SharedViewModel
+import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreenUI(modifier: Modifier = Modifier, navController: NavHostController) {
+fun MainScreenUI(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
+
+    val viewModel = koinViewModel<SharedViewModel>()
 
     var searchValue by remember { mutableStateOf("") }
-    var dropdownSearchValue by remember { mutableStateOf("") }
     var chosenCategory by remember { mutableStateOf(0L) }
+    var parentCategoryId by remember { mutableStateOf(1L) }
 
+    val productsData by viewModel.suggestedProducts.collectAsState(initial = emptyList())
+    val categoriesData by viewModel.suggestedCategories.collectAsState(initial = emptyList())
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 14.dp, end = 14.dp)
+    Scaffold(
+        bottomBar = {
+            MainScreenBottomBar(
+                onNavigateToAddProduct = { navController.navigate("addProduct_screen") },
+                onNavigateToAddCategory = { navController.navigate("addCategory_screen") },
+                onBackIconPressed = { viewModel.returnBack() }
+            )
+        }, modifier = modifier.padding(horizontal = 14.dp)
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .fillMaxSize()
+                .padding(paddingValues = it)
         ) {
-            SearchBar(
-                searchValue = searchValue,
-                modifier = modifier.height(54.dp),
-                onValueChanged = { changedValue -> searchValue = changedValue }
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 14.dp)
+                    .height(42.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                SearchBar(
+                    searchValue = searchValue,
+                    modifier = modifier.weight(1f),
+                    onValueChanged = { changedValue -> searchValue = changedValue }
+                )
+
+            }
+
+            Divider(
+                modifier = modifier.padding(all = 14.dp),
+                thickness = 1.dp,
+                color = Color.LightGray
             )
 
-            SmallButton(iconResId = com.example.coreui.R.drawable.barcode_scanner, onClick = {
-//                TODO кнопка для сканера
-            })
+            if (categoriesData.isNotEmpty()) {
+                CategoriesGrid(
+                    categoriesList = categoriesData,
+                    viewModel = viewModel
+//                onCategoryClick = {  },
+//                onCategoryLongClick = {
+//                    /*TODO*/
+//                }
+                )
+
+                Divider(
+                    modifier = modifier.padding(all = 14.dp),
+                    thickness = 1.dp,
+                    color = Color.LightGray
+                )
+            }
+
+
+            //TODO убрать фильтр, это для теста
+            ProductList(
+                products = productsData,
+                navController = navController,
+                viewModel = viewModel
+            )
+
         }
-
-        CategoriesDropdown(
-            items = testCategories,
-            dropdownSearchValue = dropdownSearchValue,
-            onValueChanged = { changedValue ->
-                dropdownSearchValue = changedValue
-            },
-            onCategoryChosen = {
-                chosenCategory = it
-            },
-            placeholder = stringResource(id = R.string.choose_category)
-        )
-        Divider(modifier = modifier.padding(all = 14.dp), thickness = 1.dp, color = Color.LightGray)
-
-        //TODO убрать фильтр, это для теста
-        ProductList(
-            products = if (chosenCategory == 0.toLong()) testProducts
-            else testProducts.filter { it.categoryID == chosenCategory }
-        )
-
     }
 }
