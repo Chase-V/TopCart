@@ -1,6 +1,7 @@
 package com.example.featurestartscreen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.coremodel.tools.AppNavRoute
 import com.example.featurestartscreen.uiElements.CategoriesGrid
 import com.example.featurestartscreen.uiElements.ProductList
 import com.example.featurestartscreen.uiElements.SearchBar
@@ -47,12 +50,22 @@ fun MainScreenUI(
     Scaffold(
         bottomBar = {
             MainScreenBottomBar(
-                onNavigateToAddProduct = { navController.navigate("addProduct_screen") },
-                onNavigateToAddCategory = { navController.navigate("addCategory_screen") },
-                onBackIconPressed = { viewModel.returnBack() }
+                onNavigateToAddProduct = { navController.navigate(AppNavRoute.AddProductScreen.route) },
+                onNavigateToAddCategory = { navController.navigate(AppNavRoute.AddCategoryScreen.route) },
+                onBackIconPressed = { viewModel.returnBack() },
+                onSearchIconPressed = { TODO() }
             )
         }, modifier = modifier.padding(horizontal = 14.dp)
     ) {
+
+        if (productsData.isEmpty() and categoriesData.isEmpty()) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = "There is nothing here yet. Add some!",
+                    modifier.align(Alignment.Center)
+                )
+            }
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -69,7 +82,8 @@ fun MainScreenUI(
                 SearchBar(
                     searchValue = searchValue,
                     modifier = modifier.weight(1f),
-                    onValueChanged = { changedValue -> searchValue = changedValue }
+                    onValueChanged = { changedValue -> searchValue = changedValue },
+                    onBarcodeButtonPressed = {navController.navigate(AppNavRoute.CameraScreen.route)}
                 )
 
             }

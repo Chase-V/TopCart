@@ -6,11 +6,9 @@ import com.example.datasource.repoImpl.RepositoryImpl
 import com.example.datasource.room.AppRoomDao
 import com.example.datasource.room.AppRoomDatabase
 import com.example.sharedviewmodel.SharedViewModel
-import com.example.topcart.navigation.AppNavRoute
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import kotlin.math.sin
 
 val appModule = module {
 
@@ -19,7 +17,7 @@ val appModule = module {
             androidApplication(),
             AppRoomDatabase::class.java,
             "app_room_database"
-            ).build()
+        ).build()
     }
 
     single<AppRoomDao> {

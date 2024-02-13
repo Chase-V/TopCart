@@ -8,17 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.coremodel.tools.AppNavRoute
 import com.example.featureaddproduct.AddCategoryScreenUI
 import com.example.featureaddproduct.AddProductScreenUI
 import com.example.featureaddproduct.EditProductScreenUI
+import com.example.featurecamera.CameraScreenUI
 import com.example.featurestartscreen.MainScreenUI
-
-sealed class AppNavRoute(val route: String) {
-    object MainScreen : AppNavRoute("main_screen")
-    object AddProductScreen : AppNavRoute("addProduct_screen")
-    object AddCategoryScreen: AppNavRoute("addCategory_screen")
-    object EditProductScreen : AppNavRoute("editProduct_screen")
-}
 
 @Composable
 fun AppNavHost(
@@ -29,16 +24,18 @@ fun AppNavHost(
 
 
     NavHost(navController = navController, startDestination = startDestination) {
+
         composable(AppNavRoute.MainScreen.route) {
             MainScreenUI(navController = navController)
         }
+
         composable(route = AppNavRoute.AddProductScreen.route) {
             AddProductScreenUI(navController = navController, onSuccessfullyAdded = {
                 navController.navigate(AppNavRoute.MainScreen.route)
             })
         }
 
-        composable(route = AppNavRoute.AddCategoryScreen.route){
+        composable(route = AppNavRoute.AddCategoryScreen.route) {
             AddCategoryScreenUI(navController = navController)
         }
 
@@ -53,5 +50,14 @@ fun AppNavHost(
             productId?.let { EditProductScreenUI(productId = it, navController = navController) }
 
         }
+
+        composable(AppNavRoute.CameraScreen.route) {
+            CameraScreenUI(navController = navController, isForBarcodeScan = false, "barcode")
+        }
+
+        composable(AppNavRoute.BarcodeCameraScreen.route){
+            CameraScreenUI(navController = navController, isForBarcodeScan = true, "uri")
+        }
+
     }
 }

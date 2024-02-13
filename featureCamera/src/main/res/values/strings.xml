@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="switch_camera_button">Switch camera button</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="open_gallery_button">Open gallery button</string>
+    <string name="app_name">TopCart</string>
+</resources>

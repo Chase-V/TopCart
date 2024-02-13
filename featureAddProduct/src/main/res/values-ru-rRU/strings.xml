@@ -9,4 +9,5 @@
     <string name="price">Цена</string>
     <string name="how_are_you_rate_it">Как вы это оцените?</string>
     <string name="chose_parent_category">Выберите родительскую категорию</string>
+    <string name="app_name">TopCart\n</string>
 </resources>

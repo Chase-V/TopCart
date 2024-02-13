@@ -47,7 +47,7 @@ dependencies {
     implementation(ComposeUi.graphics)
     debugImplementation(ComposeUi.debugImplComposeTestManifest)
     debugImplementation(ComposeUi.debugImplComposePreview)
-    implementation ("io.github.oleksandrbalan:textflow:1.1.0")
+    implementation ("io.github.oleksandrbalan:textflow:1.1.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

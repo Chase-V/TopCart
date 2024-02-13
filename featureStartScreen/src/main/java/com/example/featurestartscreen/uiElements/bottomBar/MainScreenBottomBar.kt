@@ -51,6 +51,7 @@ fun MainScreenBottomBar(
     onNavigateToAddProduct: () -> Unit,
     onNavigateToAddCategory: () -> Unit,
     onBackIconPressed:() -> Unit,
+    onSearchIconPressed:()->Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -147,7 +148,7 @@ fun MainScreenBottomBar(
             contentDescription = null,
             modifier = modifier.align(
                 Alignment.CenterEnd
-            )
+            ).clickable(onClick = onBackIconPressed)
         )
     }
 

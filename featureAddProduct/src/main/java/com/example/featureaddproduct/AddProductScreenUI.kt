@@ -43,10 +43,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.coremodel.entities.Product
 import com.example.coremodel.entities.emptyCategory
+import com.example.coremodel.tools.AppNavRoute
 import com.example.coreui.R
 import com.example.coreui.elements.CategoriesDropdown
 import com.example.coreui.elements.SmallButton
@@ -71,7 +73,6 @@ fun AddProductScreenUI(
     val viewModel = koinViewModel<SharedViewModel>()
     val categoriesList by viewModel.getAllCategories.collectAsState(initial = emptyList())
 
-
     var titleValue by rememberSaveable { mutableStateOf("") }
     var dropdownSearchValue by rememberSaveable { mutableStateOf("") }
     var chosenCategory by remember { mutableStateOf(emptyCategory()) }
@@ -80,6 +81,31 @@ fun AddProductScreenUI(
     var rating by rememberSaveable { mutableStateOf(0F) }
     var barcode by rememberSaveable { mutableStateOf("") }
     var price by rememberSaveable { mutableStateOf("") }
+
+    navController.getOnceResult(
+        keyResult = "barcode",
+        onResult = {it:String ->
+            if (!it.isNullOrEmpty()) barcode = it
+        }
+    )
+    navController.getOnceResult(
+        keyResult = "uri",
+        onResult = {it:String ->
+            if (!it.isNullOrEmpty()) photoURI = it
+        }
+    )
+
+//    val secondScreenResult = navController.currentBackStackEntry
+//        ?.savedStateHandle
+//        ?.getStateFlow<String?>("barcode", null)?.collectAsState()
+//
+//    secondScreenResult?.value?.let {
+////        if (it.isNotEmpty())
+//        barcode = it
+//        navController.currentBackStackEntry
+//            ?.savedStateHandle
+//            ?.remove<String>("barcode")
+//    }
 
     //TODO поправить сброс скролла при выборе звезды
     Column(
@@ -137,7 +163,7 @@ fun AddProductScreenUI(
                 .padding(vertical = 8.dp)
                 .fillMaxWidth()
         ) {
-            if (photoURI.isEmpty() and !isReadOnly) {
+            if (photoURI.isEmpty()) {
                 Image(
                     painter = painterResource(id = com.example.featureaddproduct.R.drawable.gallery),
                     contentDescription = stringResource(com.example.featureaddproduct.R.string.product_photo),
@@ -151,13 +177,14 @@ fun AddProductScreenUI(
                         )
                 )
             } else {
+
                 AsyncImage(
                     model = photoURI,
                     contentDescription = stringResource(com.example.featureaddproduct.R.string.product_photo),
                     placeholder = painterResource(id = com.example.featureaddproduct.R.drawable.gallery),
                     modifier = modifier
                         .heightIn(min = 150.dp, max = 200.dp)
-                        .widthIn(min = 150.dp, max = 250.dp)
+                        .widthIn(min = 150.dp, max = 250.dp),
                 )
             }
 
@@ -165,7 +192,7 @@ fun AddProductScreenUI(
                 SmallButton(
                     iconResId = R.drawable.camera,
                     onClick = {
-//                TODO() открыть камеру для фото
+                        navController.navigate(AppNavRoute.CameraScreen.route)
                     },
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -209,7 +236,7 @@ fun AddProductScreenUI(
                     ),
                     modifier = Modifier
                         .clickable {
-//                            TODO открыть сканер штрихкодов
+                            navController.navigate(AppNavRoute.BarcodeCameraScreen.route)
                         }
                         .size(24.dp)
                 )
@@ -255,8 +282,8 @@ fun AddProductScreenUI(
                     comment = commentValue,
                     rating = rating.toInt(),
                     photoURI = photoURI,
-                    barcode = barcode.toLongOrNull(),
-                    price = price.toFloatOrNull(),
+                    barcode = barcode,
+                    price = price,
                     createdAt = Date()
                 ), onSuccess = {
                     Log.d("MyLog", "AddProductScreenUI: It pushed!")
@@ -274,5 +301,20 @@ fun AddProductScreenUI(
             )
         }
 
+    }
+}
+
+@Composable
+fun <T> NavController.getOnceResult(keyResult: String, onResult: (T) -> Unit){
+    val valueScreenResult =  currentBackStackEntry
+        ?.savedStateHandle
+        ?.getStateFlow<T?>(keyResult, null)?.collectAsState()
+
+    valueScreenResult?.value?.let {
+        onResult(it)
+
+        currentBackStackEntry
+            ?.savedStateHandle
+            ?.remove<T>(keyResult)
     }
 }

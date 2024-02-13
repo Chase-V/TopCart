@@ -68,17 +68,18 @@ fun EditProductScreenUI(
     navController: NavController
 ) {
     val viewModel = koinViewModel<SharedViewModel>()
-    val allCategoriesList by viewModel.suggestedCategories.collectAsState(initial = null)
     val product by viewModel.getProduct(productId).collectAsState(initial = null)
+    val allCategoriesList by viewModel.suggestedCategories.collectAsState(initial = listOf())
 
-    if ((allCategoriesList.isNullOrEmpty()) and (product == null)) {
+
+    if (product == null) {
         CircularProgressIndicator(modifier = modifier.fillMaxSize())
     } else {
         Log.d("MyLog", "EditProductScreenUI: product:$product")
         Log.d("MyLog", "EditProductScreenUI: cats:$allCategoriesList")
         EditProduct(
             product = product!!,
-            allCategoriesList = allCategoriesList!!,
+            allCategoriesList = allCategoriesList,
             viewModel = viewModel,
             onProductChanged = {
                 navController.popBackStack()
@@ -96,7 +97,6 @@ fun EditProduct(
     viewModel: SharedViewModel,
     onProductChanged: () -> Unit
 ) {
-
     var titleValue by rememberSaveable { mutableStateOf(product.title) }
     var commentValue by rememberSaveable { mutableStateOf(product.comment) }
     var rating by rememberSaveable { mutableStateOf(product.rating) }
@@ -115,8 +115,13 @@ fun EditProduct(
     var photoURI by rememberSaveable { mutableStateOf(product.photoURI) }
     var currentCategory by remember {
         mutableStateOf(
-            if (allCategoriesList.isEmpty()) emptyCategory()
-            else allCategoriesList.first { it.categoryId == product.categoryID }
+            if (allCategoriesList.isNullOrEmpty()) emptyCategory()
+            else allCategoriesList.first {
+                Log.d("MyLog", "allCategoriesList.first: $it")
+                Log.d("MyLog", "EditProductScreenUI: it.categoryId:${it.categoryId}")
+                Log.d("MyLog", "EditProductScreenUI: product.categoryID:${product.categoryID}")
+                it.categoryId == product.categoryID
+            }
         )
     }
     var dropdownSearchValue by rememberSaveable { mutableStateOf(currentCategory.categoryTitle) }
@@ -134,7 +139,7 @@ fun EditProduct(
         )
         Row {
             CategoriesDropdown(
-                items = allCategoriesList,
+                items = allCategoriesList ?: listOf(),
                 dropdownSearchValue = dropdownSearchValue,
                 onValueChanged = {
                     dropdownSearchValue = it
@@ -302,8 +307,8 @@ fun EditProduct(
                     comment = commentValue,
                     rating = rating,
                     photoURI = photoURI,
-                    barcode = barcode.toLong(),
-                    price = price.toFloat(),
+                    barcode = barcode,
+                    price = price,
                     createdAt = Date()
                 )
                 viewModel.updateProduct(

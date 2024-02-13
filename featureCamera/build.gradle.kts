@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.featureaddproduct"
+    namespace = "com.example.featurecamera"
 
     buildFeatures {
         compose = true
@@ -12,37 +12,35 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.kotlinCompilerExtensionVersion
     }
-
 }
 
 dependencies {
 
-    //Rating Bar
-    implementation ("io.github.a914-gowtham:compose-ratingbar:1.2.3")
-
-    implementation(project(Modules.coreModel))
     implementation(project(Modules.coreUI))
-    implementation(project(Modules.shareViewModel))
-
-    //Koin
-    implementation(KoinCompose.koinCompose)
 
     //Navigation
     implementation(NavigationComponent.navigation)
+
+    //CameraX
+    implementation(CameraX.core)
+    implementation(CameraX.camera2)
+    implementation(CameraX.view)
+    implementation(CameraX.lifecycle)
+    implementation(CameraX.extensions)
+    implementation(CameraX.mlKit)
+    implementation(CameraX.barcodeScanner)
+
+    //Accompanist
+    implementation(Accompanist.permissions)
 
     //Kotlin
     implementation(Kotlin.core)
     implementation(Kotlin.stdlib)
     implementation(Kotlin.coroutinesAndroid)
-    implementation(Kotlin.coroutinesCore)
 
     //Lifecycle
     implementation(Lifecycle.lifecycle)
 
-    //Coil
-    implementation(Coil.coil)
-
-    //Compose
     implementation(platform(ComposeUi.bom))
     implementation(ComposeUi.ui)
     implementation(ComposeUi.material3)
@@ -50,9 +48,10 @@ dependencies {
     implementation(ComposeUi.activity)
     implementation(ComposeUi.viewModel)
     implementation(ComposeUi.graphics)
+    debugImplementation(ComposeUi.debugImplComposeTestManifest)
+    debugImplementation(ComposeUi.debugImplComposePreview)
 
-    //Compose Preview Debug
-    debugImplementation (ComposeUi.debugImplComposePreview)
-    debugImplementation (ComposeUi.debugImplComposeTestManifest)
-
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

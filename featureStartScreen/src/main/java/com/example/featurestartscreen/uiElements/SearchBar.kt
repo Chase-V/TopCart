@@ -33,7 +33,8 @@ import com.example.featurestartscreen.R
 fun SearchBar(
     modifier: Modifier = Modifier,
     searchValue: String,
-    onValueChanged: (String) -> Unit
+    onValueChanged: (String) -> Unit,
+    onBarcodeButtonPressed:()->Unit
 ) {
     BasicTextField(
         value = searchValue,
@@ -69,9 +70,7 @@ fun SearchBar(
                     contentDescription = null,
                     modifier = Modifier
                         .padding(4.dp)
-                        .clickable {
-                            //TODO кнопка сканера
-                        },
+                        .clickable(onClick = onBarcodeButtonPressed),
                     tint = Color(MaterialTheme.colorScheme.onPrimaryContainer.value)
                 )
             }

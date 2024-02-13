@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.coremodel.entities.ProductCategory
 import com.example.coremodel.entities.emptyCategory
+import com.example.coremodel.tools.AppNavRoute
 import com.example.coreui.elements.CategoriesDropdown
 import com.example.featureaddproduct.uiElements.ProductTitleTextField
 import com.example.sharedviewmodel.SharedViewModel
@@ -66,7 +67,7 @@ fun AddCategoryScreenUI(
                 category
             ) {}
             Log.d("MyLog", "AddCategoryScreenUI: successfully added: $category ")
-            navController.navigate("main_screen")
+            navController.popBackStack()
         }) {
             Text(text = stringResource(id = R.string.save))
         }

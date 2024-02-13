@@ -2,18 +2,27 @@ package com.example.sharedviewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.coremodel.entities.Product
 import com.example.coremodel.entities.ProductCategory
 import com.example.coremodel.entities.emptyCategory
 import com.example.coremodel.repository.Repository
+import com.example.coremodel.tools.AppNavRoute
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.launch
 
 class SharedViewModel(private val repo: Repository) :
@@ -41,16 +50,14 @@ class SharedViewModel(private val repo: Repository) :
         resetSuggestions()
     }
 
-    fun resetSuggestions(){
+    private fun resetSuggestions(){
         viewModelScope.launch {
             getAllProducts.collect {
                 _suggestedProducts.value = it
-                Log.d("MyLog", "init: $it")
             }
         }
         viewModelScope.launch {
             getAllCategories.collect {
-                Log.d("MyLog", "init2: $it")
                 _suggestedCategories.value = it
             }
         }

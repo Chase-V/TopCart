@@ -17,8 +17,8 @@ data class ProductEntity(
     val comment: String,
     val rating: Int,
     val photoURI: String? = null,
-    val barcode: Long? = null,
-    val price: Float? = null,
+    val barcode: String? = null,
+    val price: String? = null,
     val createdAt: Date
 ) {
     fun toProduct(): Product {
