@@ -11,6 +11,14 @@
 Для асинхронных задач используется Kotlin Coroutines и Flow.
 Для работы с камерой используется библиотека CameraX и Camera2.
 Для сканера штрих-кодов используется библиотека MLKit.
+Для DI используется Koin.
 
-Макет дизайна:
-https://www.figma.com/file/O9f6aPaltcWLbNbo7K3yrc/Untitled?node-id=0%3A1&t=mOYO9nLg1HrGrcNb-1
+Собственный макет дизайна:
+
+![Start screen main](https://github.com/Chase-V/TopCart/assets/38985553/726ccb84-5a0d-4ed5-8c69-23f57f03caee)
+![Start screen main2](https://github.com/Chase-V/TopCart/assets/38985553/d618b4ee-5e10-4e45-a6e2-4c4cbfa4f971)
+![Start screen main3](https://github.com/Chase-V/TopCart/assets/38985553/0670cda9-5ac2-4d2d-a061-5e68c1888c2f)
+
+
+Figma: https://www.figma.com/file/O9f6aPaltcWLbNbo7K3yrc/Untitled?node-id=0%3A1&t=mOYO9nLg1HrGrcNb-1
+
